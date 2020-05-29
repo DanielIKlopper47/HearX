@@ -1,0 +1,19 @@
+<div class="product">
+    <div class="img">
+        <img src="{{item.images}}">
+    </div>
+    <div class="productName">
+        <label>{{item.name}}</label>
+    </div>
+    <div class="productPrice"><strong>R{{item.price}}</strong></div>
+    <div class="productButton">
+        <div *ngIf="select != true">
+            <button (click)="addToCart()">{{buttonText}}</button>
+        </div>
+        <div *ngIf="select == true">
+            <button *ngIf="select == true" (click)="add()">+</button>
+            <button *ngIf="select == true" (click)="clear()">{{quantity}}</button>
+            <button *ngIf="select == true" (click)="min()">-</button>
+        </div>
+    </div>
+</div>
