@@ -4,6 +4,8 @@ import { HearxService } from '../state/hearx.service';
 import { HearxQuery, HearxQuery2 } from '../state/hearx.query';
 import { HearxStore } from '../state/hearx.store';
 import { Order } from '@datorama/akita';
+import { Observable } from 'rxjs';
+import { StoreItem } from '../state/hearx.model';
 
 @Component({
   selector: 'app-landing-page',
@@ -21,6 +23,8 @@ export class LandingPageComponent implements OnInit {
   types = ['Names', 'Price']
   order;
   orders = ['ASC', 'DESC']
+  open = false;
+
 
 
   constructor(
@@ -47,9 +51,11 @@ export class LandingPageComponent implements OnInit {
 
   openCart(){
     document.getElementById("cart").style.display = "block"
+    this.open = true
   }
   closeCart(){
     document.getElementById("cart").style.display = "none"
+    this.open = false
   }
 
   sort() {

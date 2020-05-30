@@ -43,7 +43,6 @@ export class HearxService {
 
   remove(id: any) {
     this.hearxStore2.remove(id);
-    console.log(this.hearxStore2["storeValue"]["entities"]);
   }
 
 }

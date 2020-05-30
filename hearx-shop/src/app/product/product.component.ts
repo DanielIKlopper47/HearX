@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Item, cartItem } from '../datasource/Items';
 import { CartService } from '../cart/cart.service';
 import { HearxService } from '../state/hearx.service';
 import { HearxStore2 } from '../state/hearx.store';
 import { resolve } from 'url';
 import { HearxQuery, HearxQuery2 } from '../state/hearx.query';
+import { StoreItem } from "../state/hearx.model"
 
 @Component({
   selector: 'app-product',
@@ -15,6 +16,7 @@ import { HearxQuery, HearxQuery2 } from '../state/hearx.query';
 export class ProductComponent implements OnInit {
 
   @Input() item: cartItem;
+  @Output() plus = new EventEmitter<StoreItem>();
   select = false;
   buttonText = 'Add to Cart'
   quantity = 1
@@ -28,19 +30,6 @@ export class ProductComponent implements OnInit {
     private hearxQuery: HearxQuery,
     private hearxQuery2: HearxQuery2
   ) { }
-
-
-  // public items$ = this.hearxQuery.selectAll({ sortBy: "name", sortByOrder: Order.DESC });
-  // public loading$ = this.hearxQuery.selectLoading();
-
-  // getItems() {
-  //   this.hearxService.get()
-  // }
-
-  // ngOnInit() {
-  //   this.getItems()
-  // }
-
 
   ngOnInit() {
     // console.log(this.hearxStore2["storeValue"]["entities"]);
@@ -68,45 +57,63 @@ export class ProductComponent implements OnInit {
 
     this.hearxService.addCartItems(cartItem);
   }
-  add(item) {
+  async add(item) {
     this.buttonText = 'loading'
     this.select = false;
 
     this.quantity += 1
+
+    let thisID
+    await new Promise(resolve => {
+      this.hearxQuery2.selectAll().subscribe(res => {
+        thisID = res.find(x => x.product_id == item.id)
+        resolve()
+      });
+    });
+
     let cartItem = {
+      id: thisID.id,
       product_id: item.id,
       price: item.price * this.quantity,
       quantity: this.quantity
     }
 
-    this.hearxService.update(item.id, cartItem)
-    this.hearxService.getItems()
+    this.hearxService.update(cartItem.id, cartItem)
 
     setTimeout(() => {
       this.select = true
     }, 1000)
   }
 
-  min(item) {
+  async min(item) {
     this.buttonText = 'loading'
     this.select = false;
     this.quantity -= 1
+
+    let thisID
+    await new Promise(resolve => {
+      this.hearxQuery2.selectAll().subscribe(res => {
+        thisID = res.find(x => x.product_id == item.id)
+        resolve()
+      });
+    });
+
+    let cartItem = {
+      id: thisID.id,
+      product_id: item.id,
+      price: item.price * this.quantity,
+      quantity: this.quantity
+    }
+
     setTimeout(() => {
       if (this.quantity < 1) {
         this.select = false
         this.quantity = 1
         this.buttonText = 'Add to Cart'
-        this.hearxService.remove(item.id)
-        console.log(this.hearxStore2["storeValue"]["entities"]);
+        this.hearxService.remove(cartItem.id)
       } else {
         this.select = true
-        let cartItem = {
-          product_id: item.id,
-          price: item.price * this.quantity,
-          quantity: this.quantity
-        }
-        this.hearxService.update(item.id, cartItem)
-        console.log(this.hearxStore2["storeValue"]["entities"]);
+        this.hearxService.update(cartItem.id, cartItem)
       }
     }, 1000)
   }

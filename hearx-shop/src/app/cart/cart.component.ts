@@ -5,6 +5,8 @@ import { HearxService } from '../state/hearx.service';
 import { HearxQuery, HearxQuery2 } from '../state/hearx.query';
 import { HearxStore, HearxStore2 } from '../state/hearx.store';
 import { Order } from '@datorama/akita';
+import { Observable } from 'rxjs';
+import { StoreItem } from "../state/hearx.model"
 
 @Component({
   selector: 'app-cart',
@@ -22,8 +24,7 @@ export class CartComponent implements OnInit {
     private hearxStore2: HearxStore2
   ) { }
 
-
-  public items$ = this.hearxQuery2.selectAll({ sortBy: "product_id", sortByOrder: Order.DESC }); //{ sortBy: "name", sortByOrder: Order.DESC }
+  public items$ = this.hearxQuery2.selectAll({ sortBy: "product_id", sortByOrder: Order.ASC }); //{ sortBy: "name", sortByOrder: Order.DESC }
   public loading$ = this.hearxQuery2.selectLoading();
 
   getItems() {
@@ -32,6 +33,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.getItems()
+    console.log(this.items$)
   }
 
   printCart() {
@@ -41,10 +43,4 @@ export class CartComponent implements OnInit {
       this.myCart = false;
     }
   }
-
-  clickme(){
-    // this.getItems()
-    // console.log(this.hearxStore2.get())
-  }
-
 }

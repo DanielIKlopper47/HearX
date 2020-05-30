@@ -11,7 +11,8 @@
             <option *ngFor="let n of orders" [attr.value]="n">{{n}}</option>
           </select>
         <button (click)="sort()">Sort</button>
-        <button (click)="openCart()">Cart</button>
+        <button *ngIf="open == false" (click)="openCart()">Open Cart</button>
+        <button *ngIf="open == true" (click)="closeCart()">Close Cart</button>
     </div>
     <div class="content">
         <div *ngIf="loading$ | async; else display">
@@ -25,18 +26,5 @@
     </div>
 </div>
 <div id="cart" class="cart">
-    <h1>Cart</h1>
-    <table>
-        <th>Product ID</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <!-- <tr *ngFor="let item of cart.getCart()"> -->
-        <!-- <tr *ngFor="let item of cartItems$ | async"> -->
-        <tr *ngFor="let item of hearxQuery2.selectAll() | async">
-            <td>{{item.product_id}}</td>
-            <td>{{item.quantity}}</td>
-            <td>{{item.price}}</td>
-        </tr>
-    </table>
-    <button (click)="closeCart()">Close</button>
+    <app-cart></app-cart>
 </div>
