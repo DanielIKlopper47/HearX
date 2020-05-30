@@ -30,6 +30,12 @@ export class HearxService {
     return this.hearxStore["storeValue"]["entities"]
   }
 
+  getCart(){
+    timer(1000).pipe(mapTo(CartItems)).subscribe(CartItems => {
+      this.hearxStore2.set(CartItems);
+    })
+  }
+
   add(hearx: Hearx) {
     this.hearxStore.add(hearx);
   }

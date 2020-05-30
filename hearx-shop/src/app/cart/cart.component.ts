@@ -5,8 +5,11 @@ import { HearxService } from '../state/hearx.service';
 import { HearxQuery, HearxQuery2 } from '../state/hearx.query';
 import { HearxStore, HearxStore2 } from '../state/hearx.store';
 import { Order } from '@datorama/akita';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { StoreItem } from "../state/hearx.model"
+import { Items } from '../data/data';
+import { resolve } from 'url';
+// import { setInterval } from 'timers';
 
 @Component({
   selector: 'app-cart',
@@ -16,6 +19,7 @@ import { StoreItem } from "../state/hearx.model"
 export class CartComponent implements OnInit {
 
   myCart = false;
+  Items;
 
   constructor(
     private cart: CartService,
@@ -28,19 +32,36 @@ export class CartComponent implements OnInit {
   public loading$ = this.hearxQuery2.selectLoading();
 
   getItems() {
-    this.hearxService.get()
+    this.hearxService.getCart()
+  }
+
+  async getCart(){
+    await new Promise(resolve => {
+      this.hearxQuery2.selectAll().subscribe(x => {
+        this.Items = x
+        resolve()
+      })
+    })
   }
 
   ngOnInit() {
+    this.hearxService.getCart()
     this.getItems()
-    console.log(this.items$)
+
+    setInterval(() => {
+      this.getCart()
+    }, 500)
+    
   }
 
-  printCart() {
-    if (this.myCart == false) {
-      this.myCart = true;
-    } else if (this.myCart = true) {
-      this.myCart = false;
+  getSum(Items) : number {
+    let sum = 0;
+    if (Items != undefined){
+      for(let i = 0; i < Items.length; i++) {
+        sum += Items[i]['price'];
+      }
+      return sum;
     }
+    return 0
   }
 }
