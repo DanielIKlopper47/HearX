@@ -3,16 +3,20 @@
         <h1>{{shopName}}</h1>
     </div>
     <div class="sort">
-        <label for="type">Sort by: </label>
-        <select [(ngModel)]="type" name="Select type"> 
-            <option *ngFor="let n of types" [attr.value]="n">{{n}}</option>
-          </select>
-          <select [(ngModel)]="order" name="Select type"> 
-            <option *ngFor="let n of orders" [attr.value]="n">{{n}}</option>
-          </select>
-        <button (click)="sort()">Sort</button>
-        <button *ngIf="open == false" (click)="openCart()">Open Cart</button>
-        <button *ngIf="open == true" (click)="closeCart()">Close Cart</button>
+        <label for="type" class="lbl">Sort by: </label>
+        <div class="box">
+            <select [(ngModel)]="type" id="type1" name="Select type">
+                <option *ngFor="let n of types" [attr.value]="n">{{n}}</option>
+            </select>
+        </div>
+        <div class="box">
+            <select [(ngModel)]="order" id="order" name="Select Order">
+                <option *ngFor="let n of orders" [attr.value]="n">{{n}}</option>
+            </select>
+        </div>
+        <button (click)="sort()" class="mainButton">Sort</button>
+        <button *ngIf="open == false" (click)="openCart()" class="mainButton">Open Cart</button>
+        <button *ngIf="open == true" (click)="closeCart()" class="mainButton">Close Cart</button>
     </div>
     <div class="content">
         <div *ngIf="loading$ | async; else display">

@@ -8,12 +8,12 @@
     <div class="productPrice"><strong>R{{item.price}}</strong></div>
     <div class="productButton">
         <div *ngIf="select != true">
-            <button (click)="addToCart(item)">{{buttonText}}</button>
+            <button class="mainButton" (click)="addToCart(item)">{{buttonText}}</button>
         </div>
         <div *ngIf="select == true">
-            <button *ngIf="select == true" (click)="add(item)">+</button>
-            <button *ngIf="select == true" (click)="clear()">{{quantity}}</button>
-            <button *ngIf="select == true" (click)="min(item)">-</button>
+            <button class="subButton" *ngIf="select == true" (click)="add(item)">+</button>
+            <button class="subButton" *ngIf="select == true" (click)="clear()">{{quantity}}</button>
+            <button class="subButton" *ngIf="select == true" (click)="min(item)">-</button>
         </div>
     </div>
 </div>

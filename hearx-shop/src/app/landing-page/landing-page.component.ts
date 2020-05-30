@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ITEMS } from '../datasource/Items';
 import { HearxService } from '../state/hearx.service';
 import { HearxQuery, HearxQuery2 } from '../state/hearx.query';
@@ -47,6 +47,12 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
     document.getElementById("cart").style.display = "none"
     this.getItems();
+    this.type = "Names"
+    this.order = "DESC"
+  }
+
+  ngAfterViewInit(){
+
   }
 
   openCart(){

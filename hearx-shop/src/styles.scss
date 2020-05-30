@@ -1,4 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --darkPurple: #231f4d;
+    --lightPurple: #2E2E70; 
+    --yellow: #fbbe0a;  
+    --darkYellow: #826f37;
+    --grey: #4f4c43 ;
+    --white: #FFFFFF; 
+    --red: #FB4B0A; 
+    --black: black;
+    --boxShadow: rgba(0, 0, 0, 0.2);
+    --tableBackground: #f2f2f2
+  }
+
 .main{
     display: flex;
     width: 100%;
@@ -10,3 +22,111 @@
     justify-content: center;
     align-items: center;
 }
+
+.sort{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainButton{
+    background-color: var(--grey);
+    border: 1px solid var(--white);
+    color: var(--white);
+    min-width: 120px;
+    margin: 5px;
+    height: 35px;
+    font-size: 1.01em;
+    box-shadow: 0 5px 25px var(--boxShadow);
+  }
+  .mainButton:hover {
+    color: var(--white);
+    background-color: var(--darkPurple);
+  }
+.subButton{
+    background-color: var(--grey);
+    border: 1px solid var(--white);
+    color: var(--white);
+    min-width: 15px;
+    margin: 5px;
+    height: 23px;
+    font-size: 1.01em;
+    box-shadow: 0 5px 25px var(--boxShadow);
+  }
+  .subButton:hover {
+    color: var(--white);
+    background-color: var(--darkPurple);
+  }
+
+  .lbl{
+    color: var(--grey);
+    margin: 0 10px 0 0;
+    font-size: 1.01em;
+    border-top-left-radius: 30px;
+  }
+
+  .box {
+    margin: 10px 10px 10px 10px;
+  }
+  
+  .box select {
+    background-color: var(--grey);
+    color: var(--white);
+    padding: 6px;
+    width: 150;
+    border: none;
+    font-size: 1.01em;
+    box-shadow: 0 5px 25px var(--boxShadow);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  
+  .box::before {
+    content: "\f13a";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 1.01em;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+  
+  .box:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .box select option {
+    padding: 30px;
+  }
+
+  .cartTable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .cartTable td, .cartTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .cartTable tr:nth-child(even){background-color: var(--tableBackground);}
+  
+  .cartTable tr:hover {background-color: #ddd;}
+  
+  .cartTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--grey);
+    color: white;
+  }
